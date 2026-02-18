@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# IDE
+.idea/
+.vscode/
+.vs/
+*.DotSettings.user
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+**/.vs/
+**/logs/
+**/log/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Documentation
+*.md
+LICENSE
+README.md
+
+# Testing
+**/*Tests/
+**/TestResults/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
