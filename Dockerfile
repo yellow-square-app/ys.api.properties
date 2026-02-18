@@ -1,9 +1,10 @@
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY . .
-RUN dotnet restore "./ys.api.properties.csproj" --disable-parallel
-RUN dotnet publish "./ys.api.properties.csproj" -c release -o /app --no-restore
+COPY ys.api.properties/ys.api.properties.csproj ./
+RUN dotnet restore "ys.api.properties.csproj"
+COPY ys.api.properties/ ./
+RUN dotnet publish "ys.api.properties.csproj" -c Release -o /app
 
 # Serve Stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS serve
