@@ -20,47 +20,9 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        // Try multiple environment variable names that Railway might use
-        var postgresConnectionVar = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION");
-        var databaseUrlVar = Environment.GetEnvironmentVariable("DATABASE_URL");
         var postgresUrlVar = Environment.GetEnvironmentVariable("POSTGRES_URL");
         var fallbackConnection = Configuration.GetConnectionString("PropertiesDatabase");
-
-        Console.WriteLine($"POSTGRES_CONNECTION env var is {(postgresConnectionVar != null ? "SET" : "NOT SET")}");
-        if (postgresConnectionVar != null)
-        {
-            Console.WriteLine($"  POSTGRES_CONNECTION length: {postgresConnectionVar.Length}");
-            // Show first few chars to help identify the source
-            var preview = postgresConnectionVar.Length > 30 ? postgresConnectionVar.Substring(0, 30) + "..." : postgresConnectionVar;
-            if (preview.Contains(":"))
-            {
-                var protocolEnd = preview.IndexOf("://", StringComparison.Ordinal);
-                var colonPos = protocolEnd >= 0 ? preview.IndexOf(":", protocolEnd + 3, StringComparison.Ordinal) : -1;
-                if (colonPos > 0)
-                {
-                    preview = preview.Substring(0, colonPos + 1) + "****";
-                }
-            }
-            Console.WriteLine($"  POSTGRES_CONNECTION preview: {preview}");
-        }
-
-        Console.WriteLine($"DATABASE_URL env var is {(databaseUrlVar != null ? "SET" : "NOT SET")}");
-        if (databaseUrlVar != null)
-        {
-            Console.WriteLine($"  DATABASE_URL length: {databaseUrlVar.Length}");
-            var preview = databaseUrlVar.Length > 30 ? databaseUrlVar.Substring(0, 30) + "..." : databaseUrlVar;
-            if (preview.Contains(":"))
-            {
-                var protocolEnd = preview.IndexOf("://", StringComparison.Ordinal);
-                var colonPos = protocolEnd >= 0 ? preview.IndexOf(":", protocolEnd + 3, StringComparison.Ordinal) : -1;
-                if (colonPos > 0)
-                {
-                    preview = preview.Substring(0, colonPos + 1) + "****";
-                }
-            }
-            Console.WriteLine($"  DATABASE_URL preview: {preview}");
-        }
-
+ 
         Console.WriteLine($"POSTGRES_URL env var is {(postgresUrlVar != null ? "SET" : "NOT SET")}");
         if (postgresUrlVar != null)
         {
@@ -83,18 +45,8 @@ public class Startup
         // Use the first non-null environment variable, prioritizing POSTGRES_CONNECTION
         string? rawConnectionString = null;
         string source = "";
-
-        if (!string.IsNullOrWhiteSpace(postgresConnectionVar))
-        {
-            rawConnectionString = postgresConnectionVar;
-            source = "POSTGRES_CONNECTION";
-        }
-        else if (!string.IsNullOrWhiteSpace(databaseUrlVar))
-        {
-            rawConnectionString = databaseUrlVar;
-            source = "DATABASE_URL";
-        }
-        else if (!string.IsNullOrWhiteSpace(postgresUrlVar))
+ 
+        if (!string.IsNullOrWhiteSpace(postgresUrlVar))
         {
             rawConnectionString = postgresUrlVar;
             source = "POSTGRES_URL";
