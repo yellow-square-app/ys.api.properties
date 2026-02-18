@@ -3,8 +3,8 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
-      dockerfile: DockerFile
+      context: ./ys.api.properties
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     environment:
