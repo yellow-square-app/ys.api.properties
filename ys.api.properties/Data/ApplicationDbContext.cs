@@ -27,6 +27,7 @@ namespace ys.api.properties.Data
                 .WithMany()
                 .HasForeignKey(p => p.parent_id)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         public DbSet<PropertyModelEntity> Properties { get; set; }
