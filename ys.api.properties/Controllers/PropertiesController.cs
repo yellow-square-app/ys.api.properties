@@ -35,15 +35,16 @@ namespace ys.api.properties.Controllers
         }
 
         /// <summary>
-        /// Retrieves all properties.
+        /// Retrieves all properties for a given user ID.
         /// </summary>
-        /// <returns>A list of properties.</returns>
-        [HttpGet("getProperties")]
+        /// <param name="userId">The user ID to filter properties by.</param>
+        /// <returns>A list of properties for the user.</returns>
+        [HttpGet("getPropertiesForUserId/{userId:guid}")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetProperties()
+        public async Task<IActionResult> GetPropertiesForUserId(Guid userId)
         {
-            var result = await _propertyRepository.GetPropertiesAsync();
+            var result = await _propertyRepository.GetPropertiesForUserIdAsync(userId);
 
             if (result?.Status == Models.Results.StatusCode.Failure)
                 return NotFound(result.Message);

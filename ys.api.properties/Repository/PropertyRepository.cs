@@ -23,23 +23,26 @@ public class PropertyRepository(
     private readonly ILogger<PropertyRepository> _logger = logger;
 
     /// <summary>
-    /// Retrieves all properties from the database.
+    /// Retrieves all properties for a given user ID.
     /// </summary>
+    /// <param name="userId">The user ID to filter properties by</param>
     /// <returns>A repository result containing a list of properties or failure information</returns>
-    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesAsync()
+    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesForUserIdAsync(Guid userId)
     {
-        _logger.LogInformation(Messages.Action.Called(nameof(GetPropertiesAsync)));
+        _logger.LogInformation(Messages.Action.Called($"{nameof(GetPropertiesForUserIdAsync)}:{userId}"));
 
-        var properties = await _context.Properties.ToListAsync();
+        var properties = await _context.Properties
+            .Where(p => p.created_by == userId)
+            .ToListAsync();
 
         if (!properties.Any())
         {
-            _logger.LogWarning(Messages.Errors.NotFound("properties"));
+            _logger.LogWarning(Messages.Errors.NotFound($"Properties for user {userId}"));
             return RepositoryResult<List<PropertyModelEntity>>.FailureResult(new Exception(Messages.Errors.NotFound("properties")));
         }
 
-        _logger.LogInformation(Messages.Success.Found("properties"));
-        return RepositoryResult<List<PropertyModelEntity>>.SuccessResult(properties, Messages.Success.Found("properties"));
+        _logger.LogInformation(Messages.Success.Found($"{properties.Count} properties for user {userId}"));
+        return RepositoryResult<List<PropertyModelEntity>>.SuccessResult(properties, Messages.Success.Found($"{properties.Count} properties"));
     }
 
     /// <summary>
