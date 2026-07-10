@@ -1,0 +1,182 @@
+{
+	"info": {
+		"name": "ys.api.properties",
+		"description": "Yellow Square Properties API - Local testing collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5055",
+			"type": "string"
+		},
+		{
+			"key": "propertyId",
+			"value": "550e8400-e29b-41d4-a716-446655440000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Properties",
+			"item": [
+				{
+					"name": "Get All Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/properties/getProperties",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "properties", "getProperties"]
+						}
+					}
+				},
+				{
+					"name": "Get Property By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/properties/getPropertyById/{{propertyId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "properties", "getPropertyById", "{{propertyId}}"]
+						}
+					}
+				},
+				{
+					"name": "Create Property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Downtown Office Building\",\n  \"description\": \"A modern 10-story office complex in downtown area\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/properties/createProperty",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "properties", "createProperty"]
+						}
+					}
+				},
+				{
+					"name": "Update Property",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"propertyId\": \"{{propertyId}}\",\n  \"name\": \"Updated Office Building\",\n  \"description\": \"Updated description of the property\",\n  \"latitude\": 40.7150,\n  \"longitude\": -74.0070\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/properties/updateProperty/{{propertyId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "properties", "updateProperty", "{{propertyId}}"]
+						}
+					}
+				},
+				{
+					"name": "Delete Property",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/properties/deleteProperty/{{propertyId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "properties", "deleteProperty", "{{propertyId}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Geo - Radius",
+			"item": [
+				{
+					"name": "Get Properties In Radius",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lat\": 40.7128,\n  \"lng\": -74.0060,\n  \"radiusMeters\": 1000\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/geo/radius/getPropertiesInRadius",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "geo", "radius", "getPropertiesInRadius"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Geo - Bounding Box",
+			"item": [
+				{
+					"name": "Get Properties In Bounding Box",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"minLat\": 40.7000,\n  \"minLng\": -74.0100,\n  \"maxLat\": 40.7200,\n  \"maxLng\": -73.9900\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/geo/boundingbox/getPropertiesInBoundingBox",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "geo", "boundingbox", "getPropertiesInBoundingBox"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Geo - Overlap",
+			"item": [
+				{
+					"name": "Get Properties Overlapping Polygon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"coordinates\": [\n    [-74.0060, 40.7128],\n    [-74.0050, 40.7140],\n    [-74.0040, 40.7120],\n    [-74.0060, 40.7128]\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/geo/overlap/getPropertiesOverlapping",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "geo", "overlap", "getPropertiesOverlapping"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

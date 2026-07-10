@@ -65,6 +65,78 @@ namespace ys.api.properties.Models
         public Guid? parent_id { get; set; }
 
         /// <summary>
+        /// Gets or sets the first line of the address.
+        /// </summary>
+        [MaxLength(256)]
+        public string? address_line_1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the second line of the address.
+        /// </summary>
+        [MaxLength(256)]
+        public string? address_line_2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the third line of the address.
+        /// </summary>
+        [MaxLength(256)]
+        public string? address_line_3 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fourth line of the address.
+        /// </summary>
+        [MaxLength(256)]
+        public string? address_line_4 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the locality (city/town) of the address.
+        /// </summary>
+        [MaxLength(256)]
+        public string? locality { get; set; }
+
+        /// <summary>
+        /// Gets or sets the region name (state/province).
+        /// </summary>
+        [MaxLength(256)]
+        public string? region_name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the region type (e.g., state, province, prefecture).
+        /// </summary>
+        [MaxLength(100)]
+        public string? region_type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sub-region name (county/district).
+        /// </summary>
+        [MaxLength(256)]
+        public string? sub_region_name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sub-region type.
+        /// </summary>
+        [MaxLength(100)]
+        public string? sub_region_type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the postal code.
+        /// </summary>
+        [MaxLength(20)]
+        public string? postal_code { get; set; }
+
+        /// <summary>
+        /// Gets or sets the postal code type (e.g., ZIP, postcode).
+        /// </summary>
+        [MaxLength(50)]
+        public string? postal_code_type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the country code (e.g., US, GB, DE).
+        /// </summary>
+        [MaxLength(10)]
+        public string? country_code { get; set; }
+
+        /// <summary>
         /// Gets or sets metadata for the property entity as a JSON string.
         /// </summary>
         public string? meta_data { get; set; }
