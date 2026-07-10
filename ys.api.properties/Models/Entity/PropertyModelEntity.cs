@@ -89,16 +89,16 @@ namespace ys.api.properties.Models
         public string? address_line_4 { get; set; }
 
         /// <summary>
-        /// Gets or sets the locality (city/town) of the address.
+        /// Gets or sets the city of the address.
         /// </summary>
         [MaxLength(256)]
-        public string? locality { get; set; }
+        public string? city { get; set; }
 
         /// <summary>
-        /// Gets or sets the region name (state/province).
+        /// Gets or sets the state of the address.
         /// </summary>
         [MaxLength(256)]
-        public string? region_name { get; set; }
+        public string? state { get; set; }
 
         /// <summary>
         /// Gets or sets the region type (e.g., state, province, prefecture).
@@ -135,6 +135,21 @@ namespace ys.api.properties.Models
         /// </summary>
         [MaxLength(10)]
         public string? country_code { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the address has been verified by a third-party service.
+        /// </summary>
+        public bool is_address_verified { get; set; }
+
+        /// <summary>
+        /// Gets or sets the latitude coordinate of the address.
+        /// </summary>
+        public double? latitude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the longitude coordinate of the address.
+        /// </summary>
+        public double? longitude { get; set; }
 
         /// <summary>
         /// Gets or sets metadata for the property entity as a JSON string.

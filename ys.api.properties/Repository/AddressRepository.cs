@@ -121,14 +121,17 @@ public class AddressRepository(
         address.address_line_2 = addressDto.address_line_2;
         address.address_line_3 = addressDto.address_line_3;
         address.address_line_4 = addressDto.address_line_4;
-        address.locality = addressDto.locality;
-        address.region_name = addressDto.region_name;
+        address.city = addressDto.city;
+        address.state = addressDto.state;
         address.region_type = addressDto.region_type;
         address.sub_region_name = addressDto.sub_region_name;
         address.sub_region_type = addressDto.sub_region_type;
         address.postal_code = addressDto.postal_code;
         address.postal_code_type = addressDto.postal_code_type;
         address.country_code = addressDto.country_code;
+        address.is_address_verified = addressDto.is_address_verified;
+        address.latitude = addressDto.latitude;
+        address.longitude = addressDto.longitude;
         address.version += 1;
         address.updated_on = DateTime.UtcNow;
 
