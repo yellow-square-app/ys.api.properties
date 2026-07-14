@@ -9,7 +9,7 @@ namespace ys.api.properties.Controllers
     /// Controller for retrieving address reference data (countries, regions, sub-regions).
     /// Used by the frontend to populate address form dropdowns.
     /// </summary>
-    [Route("api/addressData")]
+    [Route("api/address-data")]
     [ApiController]
     public class AddressDataForCountryController : ControllerBase
     {
@@ -35,7 +35,7 @@ namespace ys.api.properties.Controllers
         /// Retrieves all country data records.
         /// </summary>
         /// <returns>A list of all active countries with ISO 3166-1 data.</returns>
-        [HttpGet("getCountryData")]
+        [HttpGet("get-country-data")]
         [ProducesResponseType(typeof(IEnumerable<CountryDataEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetCountryData()
@@ -53,7 +53,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="countryCode">The 2-letter ISO country code. Defaults to "US".</param>
         /// <returns>The country data record.</returns>
-        [HttpGet("getCountryDataByCode")]
+        [HttpGet("get-country-data-by-code")]
         [ProducesResponseType(typeof(CountryDataEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetCountryDataByCode([FromQuery] string? countryCode = DefaultCountryCode)
@@ -72,7 +72,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="countryCode">The 2-letter ISO country code. Defaults to "US".</param>
         /// <returns>A list of regions for the specified country.</returns>
-        [HttpGet("getRegions")]
+        [HttpGet("get-regions")]
         [ProducesResponseType(typeof(IEnumerable<RegionEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetRegions([FromQuery] string? countryCode = DefaultCountryCode)
@@ -92,7 +92,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="countryCode">The 2-letter ISO country code. Defaults to "US".</param>
         /// <returns>A list of sub-regions for the specified country.</returns>
-        [HttpGet("getSubRegions")]
+        [HttpGet("get-sub-regions")]
         [ProducesResponseType(typeof(IEnumerable<RegionEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetSubRegions([FromQuery] string? countryCode = DefaultCountryCode)

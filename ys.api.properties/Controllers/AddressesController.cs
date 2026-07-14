@@ -38,7 +38,7 @@ namespace ys.api.properties.Controllers
         /// Retrieves all addresses.
         /// </summary>
         /// <returns>A list of addresses.</returns>
-        [HttpGet("getAddresses")]
+        [HttpGet("get-addresses")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAddresses()
@@ -56,7 +56,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="addressId">The unique identifier of the address.</param>
         /// <returns>The requested address.</returns>
-        [HttpGet("getAddressById/{addressId:guid}")]
+        [HttpGet("get-address-by-id/{addressId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAddressById(Guid addressId)
@@ -74,7 +74,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="parentId">The parent identifier to filter by.</param>
         /// <returns>A list of addresses for the given parent.</returns>
-        [HttpGet("getAddressesByParentId/{parentId:guid}")]
+        [HttpGet("get-addresses-by-parent-id/{parentId:guid}")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetAddressesByParentId(Guid parentId)
@@ -92,7 +92,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="addressDto">The address data to create.</param>
         /// <returns>The created address.</returns>
-        [HttpPost("createAddress")]
+        [HttpPost("create-address")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateAddress([FromBody] CreateAddressDto addressDto)
@@ -111,7 +111,7 @@ namespace ys.api.properties.Controllers
         /// <param name="addressId">The unique identifier of the address to update.</param>
         /// <param name="addressDto">The updated address data.</param>
         /// <returns>The updated address.</returns>
-        [HttpPut("updateAddress/{addressId:guid}")]
+        [HttpPut("update-address/{addressId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> UpdateAddress(Guid addressId, [FromBody] UpdateAddressDto addressDto)
@@ -132,7 +132,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="addressId">The unique identifier of the address to delete.</param>
         /// <returns>The result of the delete operation.</returns>
-        [HttpDelete("deleteAddress/{addressId:guid}")]
+        [HttpDelete("delete-address/{addressId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteAddress(Guid addressId)

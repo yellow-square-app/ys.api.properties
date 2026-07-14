@@ -35,7 +35,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="query">The overlap query containing polygon coordinate pairs.</param>
         /// <returns>A deduplicated list of overlapping properties.</returns>
-        [HttpPost("getPropertiesOverlapping")]
+        [HttpPost("get-properties-overlapping")]
         [ProducesResponseType(typeof(List<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
