@@ -134,6 +134,7 @@ public class Startup
         services.AddScoped<IRadiusRepository, RadiusRepository>();
         services.AddScoped<IOverlapRepository, OverlapRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IAddressDataRepository, AddressDataRepository>();
 
         services.AddControllers()
             .AddJsonOptions(options =>
