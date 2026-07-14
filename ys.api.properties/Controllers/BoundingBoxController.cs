@@ -34,7 +34,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="query">The bounding box query parameters (minLat, minLng, maxLat, maxLng).</param>
         /// <returns>A list of properties within the bounding box.</returns>
-        [HttpPost("getPropertiesInBoundingBox")]
+        [HttpPost("get-properties-in-bounding-box")]
         [ProducesResponseType(typeof(List<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]

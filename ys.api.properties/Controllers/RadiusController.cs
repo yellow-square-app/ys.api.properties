@@ -34,7 +34,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="query">The radius query parameters (lat, lng, radiusMeters).</param>
         /// <returns>A list of properties within the radius.</returns>
-        [HttpPost("getPropertiesInRadius")]
+        [HttpPost("get-properties-in-radius")]
         [ProducesResponseType(typeof(List<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]

@@ -28,8 +28,13 @@ namespace ys.api.properties.Data
                 .HasForeignKey(p => p.parent_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Address data lookup tables
+            modelBuilder.Entity<CountryDataEntity>().ToTable("ys-addresses-country-data");
+            modelBuilder.Entity<RegionEntity>().ToTable("ys-addresses-regions");
         }
 
         public DbSet<PropertyModelEntity> Properties { get; set; }
+        public DbSet<CountryDataEntity> CountryData { get; set; }
+        public DbSet<RegionEntity> Regions { get; set; }
     }
 }

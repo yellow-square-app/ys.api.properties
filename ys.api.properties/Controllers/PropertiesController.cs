@@ -39,7 +39,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="userId">The user ID to filter properties by.</param>
         /// <returns>A list of properties for the user.</returns>
-        [HttpGet("getPropertiesForUserId/{userId:guid}")]
+        [HttpGet("get-properties-for-user-id/{userId:guid}")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetPropertiesForUserId(Guid userId)
@@ -57,7 +57,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="propertyId">The unique identifier of the property.</param>
         /// <returns>The requested property.</returns>
-        [HttpGet("getPropertyById/{propertyId:guid}")]
+        [HttpGet("get-property-by-id/{propertyId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> GetPropertyById(Guid propertyId)
@@ -75,7 +75,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="propertyDto">The property data to create.</param>
         /// <returns>The created property.</returns>
-        [HttpPost("createProperty")]
+        [HttpPost("create-property")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<IActionResult> CreateProperty([FromBody] CreatePropertyDto propertyDto)
@@ -94,7 +94,7 @@ namespace ys.api.properties.Controllers
         /// <param name="propertyId">The unique identifier of the property to update.</param>
         /// <param name="propertyDto">The updated property data.</param>
         /// <returns>The updated property.</returns>
-        [HttpPut("updateProperty/{propertyId:guid}")]
+        [HttpPut("update-property/{propertyId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
@@ -121,7 +121,7 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="propertyId">The unique identifier of the property to delete.</param>
         /// <returns>The result of the delete operation.</returns>
-        [HttpDelete("deleteProperty/{propertyId:guid}")]
+        [HttpDelete("delete-property/{propertyId:guid}")]
         [ProducesResponseType(typeof(PropertyModelEntity), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteProperty(Guid propertyId)
