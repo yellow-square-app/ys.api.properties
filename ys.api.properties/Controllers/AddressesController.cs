@@ -1,9 +1,11 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ys.api.properties.Constants;
 using ys.api.properties.Data;
 using ys.api.properties.Dtos.Address;
 using ys.api.properties.Interfaces;
+using ys.api.properties.Helpers;
 using ys.api.properties.Mappers;
 using ys.api.properties.Models;
 
@@ -97,12 +99,21 @@ namespace ys.api.properties.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateAddress([FromBody] CreateAddressDto addressDto)
         {
-            var result = await _addressRepository.CreateAddressAsync(addressDto.ToPropertyFromCreateAddressDto());
+            try
+            {
+                var result = await _addressRepository.CreateAddressAsync(addressDto.ToPropertyFromCreateAddressDto());
 
-            if (result?.Status == Models.Results.StatusCode.Failure)
-                return BadRequest(Messages.Errors.ErrorCreatingValue("address"));
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                    return BadRequest(Messages.Errors.ErrorCreatingValue("address"));
 
-            return CreatedAtAction(nameof(GetAddressById), new { addressId = result?.Data?.id }, result);
+                return CreatedAtAction(nameof(GetAddressById), new { addressId = result?.Data?.id }, result);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while creating address");
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to create address.", detail });
+            }
         }
 
         /// <summary>
@@ -119,12 +130,21 @@ namespace ys.api.properties.Controllers
             if (addressId != addressDto.address_id)
                 return BadRequest("Address ID mismatch");
 
-            var result = await _addressRepository.UpdateAddressAsync(addressDto);
+            try
+            {
+                var result = await _addressRepository.UpdateAddressAsync(addressDto);
 
-            if (result?.Status == Models.Results.StatusCode.Failure)
-                return NotFound(result.Message);
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                    return NotFound(result.Message);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while updating address {AddressId}", addressId);
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to update address.", detail });
+            }
         }
 
         /// <summary>
@@ -137,12 +157,21 @@ namespace ys.api.properties.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteAddress(Guid addressId)
         {
-            var result = await _addressRepository.DeleteAddressAsync(addressId);
+            try
+            {
+                var result = await _addressRepository.DeleteAddressAsync(addressId);
 
-            if (result?.Status == Models.Results.StatusCode.Failure)
-                return NotFound(result.Message);
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                    return NotFound(result.Message);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while deleting address {AddressId}", addressId);
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to delete address.", detail });
+            }
         }
     }
 }
