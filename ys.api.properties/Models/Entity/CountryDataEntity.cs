@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ys.api.properties.Models;
 
@@ -17,15 +18,19 @@ public class CountryDataEntity
     public string? sovereignty { get; set; }
 
     [MaxLength(2)]
+    [JsonPropertyName("alpha2Code")]
     public string alpha_2_code { get; set; } = string.Empty;
 
     [MaxLength(3)]
+    [JsonPropertyName("alpha3Code")]
     public string alpha_3_code { get; set; } = string.Empty;
 
     [MaxLength(3)]
+    [JsonPropertyName("numericCode")]
     public string numeric_code { get; set; } = string.Empty;
 
     [MaxLength(20)]
+    [JsonPropertyName("subdivisionCodesLink")]
     public string? subdivision_codes_link { get; set; }
 
     [MaxLength(50)]
@@ -33,15 +38,21 @@ public class CountryDataEntity
 
     public string? description { get; set; }
 
+    [JsonPropertyName("isActive")]
     public bool is_active { get; set; } = true;
 
+    [JsonPropertyName("metaData")]
     public string? meta_data { get; set; }
 
+    [JsonPropertyName("createdBy")]
     public Guid? created_by { get; set; }
 
+    [JsonPropertyName("updatedBy")]
     public Guid? updated_by { get; set; }
 
+    [JsonPropertyName("createdOn")]
     public DateTime? created_on { get; set; } = DateTime.Now;
 
+    [JsonPropertyName("updatedOn")]
     public DateTime? updated_on { get; set; }
 }
