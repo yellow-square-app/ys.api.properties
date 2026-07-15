@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ys.api.properties.Dtos.Property;
 
 /// <summary>
@@ -10,18 +12,22 @@ public class UpdatePropertyDto
     /// The unique identifier of the property to be updated.
     /// This field should not be empty.
     /// </summary>
+    [Required(ErrorMessage = "PropertyId is required.")]
     public Guid PropertyId { get; set; }
 
     /// <summary>
     /// Gets or sets the updated Name of the property.
     /// This field should not be empty.
     /// </summary>
+    [Required(ErrorMessage = "Name is required.")]
+    [MaxLength(100, ErrorMessage = "Name must not exceed 100 characters.")]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the updated Description of the property.
     /// Provides additional details or context about the property.
     /// </summary>
+    [MaxLength(100, ErrorMessage = "Description must not exceed 100 characters.")]
     public string Description { get; set; } = string.Empty;
 
     /// <summary>

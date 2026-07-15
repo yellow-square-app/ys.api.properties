@@ -28,9 +28,21 @@ namespace ys.api.properties.Data
                 .HasForeignKey(p => p.parent_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Map meta_data columns to jsonb so Npgsql sends the correct type
+            modelBuilder.Entity<PropertyModelEntity>()
+                .Property(p => p.meta_data)
+                .HasColumnType("jsonb");
+
             // Address data lookup tables
             modelBuilder.Entity<CountryDataEntity>().ToTable("ys-addresses-country-data");
+            modelBuilder.Entity<CountryDataEntity>()
+                .Property(p => p.meta_data)
+                .HasColumnType("jsonb");
+
             modelBuilder.Entity<RegionEntity>().ToTable("ys-addresses-regions");
+            modelBuilder.Entity<RegionEntity>()
+                .Property(p => p.meta_data)
+                .HasColumnType("jsonb");
         }
 
         public DbSet<PropertyModelEntity> Properties { get; set; }

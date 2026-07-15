@@ -1,9 +1,11 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ys.api.properties.Constants;
 using ys.api.properties.Data;
 using ys.api.properties.Dtos.Property;
 using ys.api.properties.Interfaces;
+using ys.api.properties.Helpers;
 using ys.api.properties.Mappers;
 using ys.api.properties.Models;
 
@@ -80,12 +82,21 @@ namespace ys.api.properties.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<IActionResult> CreateProperty([FromBody] CreatePropertyDto propertyDto)
         {
-            var result = await _propertyRepository.CreatePropertyAsync(propertyDto.ToPropertyFromCreatePropertyDto());
+            try
+            {
+                var result = await _propertyRepository.CreatePropertyAsync(propertyDto.ToPropertyFromCreatePropertyDto());
 
-            if (result?.Status == Models.Results.StatusCode.Failure)
-                return Conflict(Messages.Errors.NameExists("property"));
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                    return Conflict(Messages.Errors.NameExists("property"));
 
-            return CreatedAtAction(nameof(GetPropertyById), new { propertyId = result?.Data?.id }, result);
+                return CreatedAtAction(nameof(GetPropertyById), new { propertyId = result?.Data?.id }, result);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while creating property");
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to create property.", detail });
+            }
         }
 
         /// <summary>
@@ -103,17 +114,26 @@ namespace ys.api.properties.Controllers
             if (propertyId != propertyDto.PropertyId)
                 return BadRequest("Property ID mismatch");
 
-            var result = await _propertyRepository.UpdatePropertyAsync(propertyDto);
-
-            if (result?.Status == Models.Results.StatusCode.Failure)
+            try
             {
-                if (result.Message.Contains("not found"))
-                    return NotFound(result.Message);
+                var result = await _propertyRepository.UpdatePropertyAsync(propertyDto);
 
-                return Conflict(result.Message);
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                {
+                    if (result.Message.Contains("not found"))
+                        return NotFound(result.Message);
+
+                    return Conflict(result.Message);
+                }
+
+                return Ok(result);
             }
-
-            return Ok(result);
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while updating property {PropertyId}", propertyId);
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to update property.", detail });
+            }
         }
 
         /// <summary>
@@ -126,12 +146,21 @@ namespace ys.api.properties.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteProperty(Guid propertyId)
         {
-            var result = await _propertyRepository.DeletePropertyAsync(propertyId);
+            try
+            {
+                var result = await _propertyRepository.DeletePropertyAsync(propertyId);
 
-            if (result?.Status == Models.Results.StatusCode.Failure)
-                return NotFound(result.Message);
+                if (result?.Status == Models.Results.StatusCode.Failure)
+                    return NotFound(result.Message);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Database error while deleting property {PropertyId}", propertyId);
+                var detail = DbExceptionHelper.ExtractDetail(ex);
+                return BadRequest(new { error = "Failed to delete property.", detail });
+            }
         }
     }
 }
