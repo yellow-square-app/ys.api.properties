@@ -21,13 +21,6 @@ namespace ys.api.properties.Data
                 .Property(p => p.boundary)
                 .HasColumnType("geometry(Polygon, 4326)");
 
-            // Configure self-referencing foreign key for parent_id
-            modelBuilder.Entity<PropertyModelEntity>()
-                .HasOne<PropertyModelEntity>()
-                .WithMany()
-                .HasForeignKey(p => p.parent_id)
-                .OnDelete(DeleteBehavior.Restrict);
-
             // Map meta_data columns to jsonb so Npgsql sends the correct type
             modelBuilder.Entity<PropertyModelEntity>()
                 .Property(p => p.meta_data)

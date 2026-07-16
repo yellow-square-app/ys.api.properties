@@ -63,7 +63,7 @@ public class AddressRepository(
     /// <summary>
     /// Retrieves all addresses associated with a given parent ID.
     /// </summary>
-    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetAddressesByParentIdAsync(Guid parentId)
+    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetAddressesByParentIdAsync(string parentId)
     {
         _logger.LogInformation(Messages.Action.Called($"{nameof(GetAddressesByParentIdAsync)}:{parentId}"));
 

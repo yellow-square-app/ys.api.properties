@@ -41,10 +41,10 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="userId">The user ID to filter properties by.</param>
         /// <returns>A list of properties for the user.</returns>
-        [HttpGet("get-properties-for-user-id/{userId:guid}")]
+        [HttpGet("get-properties-for-user-id/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetPropertiesForUserId(Guid userId)
+        public async Task<IActionResult> GetPropertiesForUserId(string userId)
         {
             var result = await _propertyRepository.GetPropertiesForUserIdAsync(userId);
 

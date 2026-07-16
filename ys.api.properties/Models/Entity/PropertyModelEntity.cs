@@ -51,13 +51,13 @@ namespace ys.api.properties.Models
         /// Gets or sets the user_id for the user who created the entity.
         /// </summary>
         [JsonPropertyName("createdBy")]
-        public Guid? created_by { get; set; }
+        public string? created_by { get; set; }
 
         /// <summary>
         /// Gets or sets the user_id for the user who edited the entity.
         /// </summary>
         [JsonPropertyName("updatedBy")]
-        public Guid? updated_by { get; set; }
+        public string? updated_by { get; set; }
 
         /// <summary>
         /// Gets or sets the level associated with the property entity.
@@ -68,7 +68,7 @@ namespace ys.api.properties.Models
         /// Gets or sets the nullable parent_id for the property.
         /// </summary>
         [JsonPropertyName("parentId")]
-        public Guid? parent_id { get; set; }
+        public string? parent_id { get; set; }
 
         /// <summary>
         /// Gets or sets the first line of the address.
