@@ -76,10 +76,10 @@ namespace ys.api.properties.Controllers
         /// </summary>
         /// <param name="parentId">The parent identifier to filter by.</param>
         /// <returns>A list of addresses for the given parent.</returns>
-        [HttpGet("get-addresses-by-parent-id/{parentId:guid}")]
+        [HttpGet("get-addresses-by-parent-id/{parentId}")]
         [ProducesResponseType(typeof(IEnumerable<PropertyModelEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetAddressesByParentId(Guid parentId)
+        public async Task<IActionResult> GetAddressesByParentId(string parentId)
         {
             var result = await _addressRepository.GetAddressesByParentIdAsync(parentId);
 

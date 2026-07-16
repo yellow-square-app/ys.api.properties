@@ -6,7 +6,7 @@ namespace ys.api.properties.Interfaces;
 
 public interface IPropertyRepository
 {
-    public Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesForUserIdAsync(Guid userId);
+    public Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesForUserIdAsync(string userId);
     public Task<RepositoryResult<PropertyModelEntity>?> GetPropertyByIdAsync(Guid propertyId);
     public Task<RepositoryResult<PropertyModelEntity>> CreatePropertyAsync(PropertyModelEntity propertyModelEntity);
     public Task<RepositoryResult<PropertyModelEntity>?> UpdatePropertyAsync(UpdatePropertyDto propertyDto);

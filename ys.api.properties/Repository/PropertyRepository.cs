@@ -27,12 +27,12 @@ public class PropertyRepository(
     /// </summary>
     /// <param name="userId">The user ID to filter properties by</param>
     /// <returns>A repository result containing a list of properties or failure information</returns>
-    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesForUserIdAsync(Guid userId)
+    public async Task<RepositoryResult<List<PropertyModelEntity>>> GetPropertiesForUserIdAsync(string userId)
     {
         _logger.LogInformation(Messages.Action.Called($"{nameof(GetPropertiesForUserIdAsync)}:{userId}"));
 
         var properties = await _context.Properties
-            .Where(p => p.created_by == userId)
+            .Where(p => p.parent_id == userId)
             .ToListAsync();
 
         if (!properties.Any())

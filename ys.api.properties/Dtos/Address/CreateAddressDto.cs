@@ -61,11 +61,11 @@ public class CreateAddressDto
 
     [Required(ErrorMessage = "parentId is required.")]
     [JsonPropertyName("parentId")]
-    public Guid? parent_id { get; set; }
+    public string? parent_id { get; set; }
 
     [Required(ErrorMessage = "createdBy is required.")]
     [JsonPropertyName("createdBy")]
-    public Guid? created_by { get; set; }
+    public string? created_by { get; set; }
 
     public double? latitude { get; set; }
     public double? longitude { get; set; }
